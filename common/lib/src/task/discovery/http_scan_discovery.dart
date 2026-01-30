@@ -21,8 +21,40 @@ class HttpScanDiscoveryService {
     required StateAccessor<HttpTargetDiscoveryService> targetedDiscoveryService,
   }) : _targetedDiscoveryService = targetedDiscoveryService;
 
-  Stream<Device> getStream({required String networkInterface, required int port, required bool https}) {
-    final ipList = List.generate(256, (i) => '${networkInterface.split('.').take(3).join('.')}.$i').where((ip) => ip != networkInterface).toList();
+  Stream<Device> getStream({
+    required String networkInterface,
+    required int port,
+    required bool https,
+    int? scanRange, // Number of addresses to scan (256 for /24, 65536 for /16)
+  }) {
+    final range = scanRange ?? 256; // Default to /24 for backward compatibility
+    final List<String> ipList;
+    
+    if (range == 256) {
+      // /24 network: scan last octet (192.168.1.0 - 192.168.1.255)
+      ipList = List.generate(256, (i) => '${networkInterface.split('.').take(3).join('.')}.$i')
+          .where((ip) => ip != networkInterface)
+          .toList();
+    } else if (range == 65536) {
+      // /16 network: scan last two octets (192.168.0.0 - 192.168.255.255)
+      final parts = networkInterface.split('.');
+      final baseIp = '${parts[0]}.${parts[1]}';
+      ipList = <String>[];
+      for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+          final ip = '$baseIp.$i.$j';
+          if (ip != networkInterface) {
+            ipList.add(ip);
+          }
+        }
+      }
+    } else {
+      // Unsupported range, default to /24
+      ipList = List.generate(256, (i) => '${networkInterface.split('.').take(3).join('.')}.$i')
+          .where((ip) => ip != networkInterface)
+          .toList();
+    }
+    
     _runners[networkInterface]?.stop();
     _runners[networkInterface] = TaskRunner<Device?>(
       initialTasks: List.generate(

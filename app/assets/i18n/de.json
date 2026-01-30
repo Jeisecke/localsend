@@ -145,7 +145,13 @@
       "portWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du einen benutzerdefinierten Port verwendest. (Standard: {defaultPort})",
       "encryption": "Verschlüsselung",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})"
+      "multicastGroupWarning": "Möglicherweise wirst du von anderen Geräten nicht erkannt, weil du eine benutzerdefinierte Multicast-Adresse verwendest. (Standard: {defaultMulticast})",
+      "scanRange": "Netzwerk-Scan-Bereich",
+      "scanRangeOptions": {
+        "subnet24": "/24 Subnetz (256 Adressen)",
+        "subnet16": "/16 Subnetz (65.536 Adressen)"
+      },
+      "scanRangeInfo": "Netzwerk-Scan-Bereich für HTTP-basierte Geräteerkennung. /24 ist schneller und für die meisten Netzwerke empfohlen. Verwende /16 nur für große Unternehmensnetzwerke. Hinweis: Multicast-Erkennung funktioniert über Subnetze hinweg, wenn dein Router dies unterstützt."
     },
     "other": {
       "title": "Weitere",

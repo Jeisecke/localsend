@@ -145,7 +145,13 @@
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast address",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})",
+      "scanRange": "Network scan range",
+      "scanRangeOptions": {
+        "subnet24": "/24 subnet (256 addresses)",
+        "subnet16": "/16 subnet (65,536 addresses)"
+      },
+      "scanRangeInfo": "Network scan range for HTTP-based discovery. /24 is faster and recommended for most networks. Use /16 only for large enterprise networks. Note: Multicast discovery works across subnets if your router supports it."
     },
     "other": {
       "title": "Other",

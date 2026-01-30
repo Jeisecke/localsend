@@ -69,11 +69,13 @@ class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateC
   final String networkInterface;
   final int port;
   final bool https;
+  final int? scanRange;
 
   IsolateInterfaceHttpDiscoveryAction({
     required this.networkInterface,
     required this.port,
     required this.https,
+    this.scanRange,
   });
 
   @override
@@ -87,6 +89,7 @@ class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateC
       networkInterface: networkInterface,
       port: port,
       https: https,
+      scanRange: scanRange,
     );
 
     return (
