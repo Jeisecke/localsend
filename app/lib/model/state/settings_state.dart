@@ -2,6 +2,7 @@ import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/network_scan_range.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 
@@ -35,6 +36,7 @@ class SettingsState with SettingsStateMappable {
   final bool shareViaLinkAutoAccept;
   final int discoveryTimeout;
   final bool advancedSettings;
+  final NetworkScanRange networkScanRange; // subnet size for HTTP-based discovery
 
   const SettingsState({
     required this.showToken,
@@ -63,5 +65,6 @@ class SettingsState with SettingsStateMappable {
     required this.shareViaLinkAutoAccept,
     required this.discoveryTimeout,
     required this.advancedSettings,
+    required this.networkScanRange,
   });
 }

@@ -3,6 +3,7 @@ import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/network_scan_range.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
@@ -70,6 +71,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
+    networkScanRange: _persistence.getNetworkScanRange(),
   );
 
   Future<void> setAlias(String alias) async {
@@ -245,6 +247,13 @@ class SettingsService extends PureNotifier<SettingsState> {
 
     state = state.copyWith(
       shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+    );
+  }
+
+  Future<void> setNetworkScanRange(NetworkScanRange range) async {
+    await _persistence.setNetworkScanRange(range);
+    state = state.copyWith(
+      networkScanRange: range,
     );
   }
 }

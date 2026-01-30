@@ -71,12 +71,21 @@ class StartLegacySubnetScan extends AsyncGlobalAction {
     final settings = ref.read(settingsProvider);
     final port = settings.port;
     final https = settings.https;
+    final scanRange = settings.networkScanRange.addressCount;
 
     // send announcement in parallel
     ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan());
 
     await Future.wait<void>([
-      for (final subnet in subnets) ref.redux(nearbyDevicesProvider).dispatchAsync(StartLegacyScan(port: port, localIp: subnet, https: https)),
+      for (final subnet in subnets) 
+        ref.redux(nearbyDevicesProvider).dispatchAsync(
+          StartLegacyScan(
+            port: port,
+            localIp: subnet,
+            https: https,
+            scanRange: scanRange,
+          )
+        ),
     ]);
   }
 }

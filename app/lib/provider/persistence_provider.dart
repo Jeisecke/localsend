@@ -8,6 +8,7 @@ import 'package:common/model/stored_security_context.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/network_scan_range.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
@@ -90,6 +91,7 @@ const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
 const _advancedSettingsKey = 'ls_advanced_settings';
+const _networkScanRange = 'ls_network_scan_range';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -544,6 +546,15 @@ class PersistenceService {
 
   Future<void> setDeviceModel(String deviceModel) async {
     await _prefs.setString(_deviceModel, deviceModel);
+  }
+
+  NetworkScanRange getNetworkScanRange() {
+    final value = _prefs.getString(_networkScanRange);
+    return NetworkScanRange.values.firstWhereOrNull((r) => r.name == value) ?? NetworkScanRange.subnet24;
+  }
+
+  Future<void> setNetworkScanRange(NetworkScanRange range) async {
+    await _prefs.setString(_networkScanRange, range.name);
   }
 
   Future<void> clear() async {

@@ -149,11 +149,13 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
   final int port;
   final String localIp;
   final bool https;
+  final int? scanRange;
 
   StartLegacyScan({
     required this.port,
     required this.localIp,
     required this.https,
+    this.scanRange,
   });
 
   @override
@@ -171,6 +173,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
         networkInterface: localIp,
         port: port,
         https: https,
+        scanRange: scanRange,
       ),
     );
 

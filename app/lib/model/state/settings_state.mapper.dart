@@ -14,6 +14,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SettingsStateMapper._());
       DeviceTypeMapper.ensureInitialized();
+      NetworkScanRangeMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -73,6 +74,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, int> _f$discoveryTimeout = Field('discoveryTimeout', _$discoveryTimeout);
   static bool _$advancedSettings(SettingsState v) => v.advancedSettings;
   static const Field<SettingsState, bool> _f$advancedSettings = Field('advancedSettings', _$advancedSettings);
+  static NetworkScanRange _$networkScanRange(SettingsState v) => v.networkScanRange;
+  static const Field<SettingsState, NetworkScanRange> _f$networkScanRange = Field('networkScanRange', _$networkScanRange);
 
   @override
   final MappableFields<SettingsState> fields = const {
@@ -102,6 +105,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
+    #networkScanRange: _f$networkScanRange,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -132,6 +136,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
+      networkScanRange: data.dec(_f$networkScanRange),
     );
   }
 
@@ -208,6 +213,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out> implem
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
+    NetworkScanRange? networkScanRange,
   });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -254,6 +260,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
+    NetworkScanRange? networkScanRange,
   }) => $apply(
     FieldCopyWithData({
       if (showToken != null) #showToken: showToken,
@@ -282,6 +289,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
       if (shareViaLinkAutoAccept != null) #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
+      if (networkScanRange != null) #networkScanRange: networkScanRange,
     }),
   );
   @override
@@ -312,6 +320,7 @@ class _SettingsStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Setting
     shareViaLinkAutoAccept: data.get(#shareViaLinkAutoAccept, or: $value.shareViaLinkAutoAccept),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
+    networkScanRange: data.get(#networkScanRange, or: $value.networkScanRange),
   );
 
   @override

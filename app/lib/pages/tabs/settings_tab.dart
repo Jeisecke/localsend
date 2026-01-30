@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/network_scan_range.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
@@ -422,6 +423,33 @@ class SettingsTab extends StatelessWidget {
                           onTap: () async {
                             await context.push(() => const NetworkInterfacesPage());
                           },
+                        ),
+                      if (vm.advanced)
+                        _SettingsEntry(
+                          label: t.settingsTab.network.scanRange,
+                          child: CustomDropdownButton<NetworkScanRange>(
+                            value: vm.settings.networkScanRange,
+                            items: NetworkScanRange.values.map((range) {
+                              return DropdownMenuItem(
+                                value: range,
+                                alignment: Alignment.center,
+                                child: Text(range.humanName),
+                              );
+                            }).toList(),
+                            onChanged: (range) async {
+                              if (range != null) {
+                                await ref.notifier(settingsProvider).setNetworkScanRange(range);
+                              }
+                            },
+                          ),
+                        ),
+                      if (vm.advanced)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                          child: Text(
+                            t.settingsTab.network.scanRangeInfo,
+                            style: const TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
                         ),
                       if (vm.advanced)
                         _SettingsEntry(
