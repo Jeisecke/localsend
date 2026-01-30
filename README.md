@@ -214,9 +214,44 @@ flutter build ipa
 
 ### macOS
 
+**Prerequisites**
+
+- macOS 11 (Big Sur) or higher
+- Xcode (available from the Mac App Store)
+- Flutter (see [Getting Started](#getting-started) section)
+- Rust (see [Getting Started](#getting-started) section)
+
+**Traditional Build**
+
 ```bash
 flutter build macos
 ```
+
+The built app will be located at `build/macos/Build/Products/Release/LocalSend.app`.
+
+**DMG Installer**
+
+To create a DMG installer for distribution:
+
+1. Install `create-dmg`:
+   ```bash
+   brew install create-dmg
+   ```
+
+2. Run the build script from the project root:
+   ```bash
+   ./scripts/compile_mac_dmg.sh
+   ```
+
+Note: The DMG script includes code signing and notarization steps that require a valid Apple Developer certificate. For personal builds, you can modify the script to skip these steps.
+
+**App Store Build**
+
+```bash
+./scripts/compile_mac_appstore.sh
+```
+
+Note: This requires proper App Store provisioning profiles and certificates.
 
 ### Windows
 
