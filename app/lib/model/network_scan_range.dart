@@ -24,9 +24,9 @@ enum NetworkScanRange {
   String get description {
     switch (this) {
       case NetworkScanRange.subnet24:
-        return '/24 (255.255.255.0) - 256 addresses';
+        return t.settingsTab.network.scanRangeOptions.subnet24;
       case NetworkScanRange.subnet16:
-        return '/16 (255.255.0.0) - 65,536 addresses';
+        return t.settingsTab.network.scanRangeOptions.subnet16;
     }
   }
 
