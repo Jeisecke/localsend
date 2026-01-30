@@ -1,9 +1,13 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+
+part 'network_scan_range.mapper.dart';
 
 /// Defines the network scan range for HTTP-based device discovery.
 /// 
 /// - [subnet24]: Scans /24 network (255.255.255.0) - 256 addresses
 /// - [subnet16]: Scans /16 network (255.255.0.0) - 65,536 addresses
+@MappableEnum()
 enum NetworkScanRange {
   subnet24,
   subnet16;
