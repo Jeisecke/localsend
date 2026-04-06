@@ -15,12 +15,12 @@ import 'package:refena/refena.dart';
 final _idProvider = IdProvider();
 
 class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
-  final String networkInterface;
+  final String networkInterfaceWithMask;
   final int port;
   final bool https;
 
   IsolateInterfaceHttpDiscoveryAction({
-    required this.networkInterface,
+    required this.networkInterfaceWithMask,
     required this.port,
     required this.https,
   });
@@ -33,7 +33,7 @@ class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateC
     }
 
     final task = HttpInterfaceScanTask(
-      networkInterface: networkInterface,
+      networkInterface: networkInterfaceWithMask,
       port: port,
       https: https,
     );

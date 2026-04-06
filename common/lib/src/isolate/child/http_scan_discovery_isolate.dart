@@ -42,17 +42,17 @@ Future<void> setupHttpScanDiscoveryIsolate(
     sendToMain: sendToMain,
     initialData: initialData,
     handler: (ref, task) async {
-      final stream = switch (task.data) {
-        HttpInterfaceScanTask data => ref.read(httpScanDiscoveryProvider).getStream(
-              networkInterface: data.networkInterface,
-              port: data.port,
-              https: data.https,
-            ),
-        HttpFavoriteScanTask data => ref.read(httpScanDiscoveryProvider).getFavoriteStream(
-              devices: data.favorites,
-              https: data.https,
-            ),
-      };
+       final stream = switch (task.data) {
+         HttpInterfaceScanTask data => ref.read(httpScanDiscoveryProvider).getStream(
+               networkInterfaceWithMask: data.networkInterface,
+               port: data.port,
+               https: data.https,
+             ),
+         HttpFavoriteScanTask data => ref.read(httpScanDiscoveryProvider).getFavoriteStream(
+               devices: data.favorites,
+               https: data.https,
+             ),
+       };
       await for (final device in stream) {
         sendToMain(IsolateTaskStreamResult.event(
           id: task.id,

@@ -166,13 +166,13 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
 
     dispatch(_SetRunningIpsAction({...state.runningIps, localIp}));
 
-    final stream = external(notifier._isolateController).dispatchTakeResult(
-      IsolateInterfaceHttpDiscoveryAction(
-        networkInterface: localIp,
-        port: port,
-        https: https,
-      ),
-    );
+     final stream = external(notifier._isolateController).dispatchTakeResult(
+       IsolateInterfaceHttpDiscoveryAction(
+         networkInterfaceWithMask: localIp,
+         port: port,
+         https: https,
+       ),
+     );
 
     await for (final device in stream) {
       notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
