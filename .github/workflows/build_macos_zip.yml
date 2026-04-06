@@ -1,0 +1,42 @@
+name: Build macOS zip
+
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.38.10"
+
+jobs:
+  build_macos_zip:
+    runs-on: macos-14
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.93.1
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Build macOS app
+        working-directory: app
+        run: flutter build macos --release
+
+      - name: Zip app bundle
+        working-directory: app/build/macos/Build/Products/Release
+        run: ditto -c -k --sequesterRsrc --keepParent localsend_app.app LocalSend-macos.zip
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v6
+        with:
+          name: macos-zip-result
+          path: app/build/macos/Build/Products/Release/LocalSend-macos.zip

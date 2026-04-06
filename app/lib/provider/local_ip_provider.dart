@@ -91,33 +91,16 @@ Future<List<String>> _getIp({
     _logger.warning('Failed to get wifi IP', e);
   }
 
-  // Get interfaces with their addresses and netmasks
-  final interfaces = await getNetworkInterfaces(
-        whitelist: whitelist,
-        blacklist: blacklist,
-      );
+  final nativeAddresses = await getInterfaceAddresses(
+    whitelist: whitelist,
+    blacklist: blacklist,
+  );
 
-  // Extract IP addresses with their netmasks
-  final List<String> nativeResultWithMasks = <String>[];
-  for (final interface in interfaces) {
-    for (final addr in interface.addresses) {
-      // Skip IPv6 for now
-      if (addr.address.type == InternetAddressType.IPv6) {
-        continue;
-      }
-
-      // Format as "IP/NETMASK" if netmask is available, otherwise just "IP"
-      if (addr.netmask != null) {
-        nativeResultWithMasks.add('${addr.address.address}/${addr.netmask.address}');
-      } else {
-        nativeResultWithMasks.add(addr.address.address);
-      }
-    }
-  }
+  final nativeResultWithMasks = nativeAddresses.map((a) => a.toString()).toList();
 
   // For ranking purposes, we still need just the IP addresses
-  final List<String> nativeResult = nativeResultWithMasks
-      .map((ipWithMask) => ipWithMask.split('/').first)
+  final List<String> nativeResult = nativeAddresses
+      .map((a) => a.ip)
       .where((ip) => !ip.contains(':')) // ignore IPv6 for now
       .toList();
 
